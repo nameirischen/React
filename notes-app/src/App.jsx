@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import NoteForm from "./compoments/NoteForm";
 import NoteList from "./compoments/NoteList";
 
 const App = () => {
-const [notes,setNotes]=useState([])
+const [notes,setNotes]=useState(()=>{
+  const notes=JSON.parse(localStorage.getItem('notes'));
+  return notes || [];
+})
+useEffect
+(()=>{localStorage.setItem('notes', JSON.stringify(notes))}
+,[notes]);//dependency array
+
 const deleteNote  =(id)=>{
   const confirmDelete=window.confirm('Are you sure you want to delete this note?');
   if(confirmDelete){
